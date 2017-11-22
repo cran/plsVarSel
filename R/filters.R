@@ -54,7 +54,7 @@ VIP <- function (pls.object, opt.comp, p = dim(pls.object$coef)[1]) {
   Q2 <- as.numeric(Q) * as.numeric(Q)
   Q2TT <- Q2[1:opt.comp] * diag(crossprod(TT))[1:opt.comp]
   WW <- W * W/apply(W, 2, function(x) sum(x * x))
-  VIP <- sqrt(p * apply(sweep(WW[, 1:opt.comp],2,Q2TT,"*"), 1, sum)/sum(Q2TT))
+  VIP <- sqrt(p * apply(sweep(WW[, 1:opt.comp, drop=FALSE],2,Q2TT,"*"), 1, sum)/sum(Q2TT))
   VIP
 }
 
