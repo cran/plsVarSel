@@ -2,8 +2,8 @@ Encoding: UTF-8
 Package: plsVarSel
 Type: Package
 Title: Variable Selection in Partial Least Squares
-Version: 0.9.7
-Date: 2021-12-28
+Version: 0.9.8
+Date: 2022-07-14
 Authors@R: 
     c(person(given = "Kristian Hovde",
              family = "Liland",
@@ -26,13 +26,13 @@ Depends: pls
 Imports: grDevices, graphics, genalg, mvtnorm, bdsmatrix, MASS,
         progress, parallel, stats, MSQC, praznik
 Suggests: Rmpi
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.0
 NeedsCompilation: no
-Packaged: 2021-12-28 10:10:33 UTC; kristl
+Packaged: 2022-07-14 19:18:04 UTC; kristian
 Author: Kristian Hovde Liland [aut, cre]
     (<https://orcid.org/0000-0001-6468-9423>),
   Tahir Mehmood [ctb],
   Solve Sæbø [ctb]
 Maintainer: Kristian Hovde Liland <kristian.liland@nmbu.no>
 Repository: CRAN
-Date/Publication: 2022-01-04 12:10:06 UTC
+Date/Publication: 2022-07-16 07:30:16 UTC
