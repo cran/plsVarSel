@@ -365,6 +365,7 @@ delete.intercept <- function(mm) {
   mm
 }
 
+#' @export
 print.mvrV <- function(x, ...) {
   switch(x$method,
          truncation = {
@@ -496,7 +497,7 @@ lapplyFunc <- function(parSpec, X, FUN, nonForkInit) {
 ## Calculate the validation statistics needed for (R)MSEP and R^2.
 ## Note that it accepts any values for `estimate', but only calculates
 ## statistics for "train", "test" and "CV".
-mvrValstats <- function(object, estimate,
+mvrValstatsV <- function(object, estimate,
                         newdata, ncomp = 1:object$ncomp, comps,
                         intercept = cumulative, se = FALSE, ...)
 {
@@ -628,10 +629,10 @@ mvrValstats <- function(object, estimate,
               cumulative = cumulative))
 }
 
-
 ## R2: Return R^2
-R2 <- function(object, ...) UseMethod("R2")
-R2.mvr <- function(object, estimate, newdata, ncomp = 1:object$ncomp, comps,
+# R2 <- function(object, ...) UseMethod("R2")
+#' @export
+R2.mvrV <- function(object, estimate, newdata, ncomp = 1:object$ncomp, comps,
                    intercept = cumulative, se = FALSE, ...) {
   ## Makes the code slightly simpler:  FIXME: maybe remove
   cumulative <- missing(comps) || is.null(comps)
@@ -664,7 +665,7 @@ R2.mvr <- function(object, estimate, newdata, ncomp = 1:object$ncomp, comps,
   ## Get the needed validation statistics:
   cl <- match.call(expand.dots = FALSE)
   cl$estimate <- estimate             # update estimate argument
-  cl[[1]] <- as.name("mvrValstats")
+  cl[[1]] <- as.name("mvrValstatsV")
   valstats <- eval(cl, parent.frame())
   
   ## Calculate the R^2s:
@@ -677,8 +678,9 @@ R2.mvr <- function(object, estimate, newdata, ncomp = 1:object$ncomp, comps,
 
 
 ## MSEP: Return MSEP
-MSEP <- function(object, ...) UseMethod("MSEP")
-MSEP.mvr <- function(object, estimate, newdata, ncomp = 1:object$ncomp, comps,
+# MSEP <- function(object, ...) UseMethod("MSEP")
+#' @export
+MSEP.mvrV <- function(object, estimate, newdata, ncomp = 1:object$ncomp, comps,
                      intercept = cumulative, se = FALSE, ...)
 {
   ## Makes the code slightly simpler:
@@ -720,7 +722,7 @@ MSEP.mvr <- function(object, estimate, newdata, ncomp = 1:object$ncomp, comps,
   ## Get the needed validation statistics:
   cl <- match.call(expand.dots = FALSE)
   cl$estimate <- calcestimates        # update estimate argument
-  cl[[1]] <- as.name("mvrValstats")
+  cl[[1]] <- as.name("mvrValstatsV")
   valstats <- eval(cl, parent.frame())
   
   ## Calculate the MSEPs:
@@ -762,8 +764,9 @@ MSEP.mvr <- function(object, estimate, newdata, ncomp = 1:object$ncomp, comps,
 }
 
 # RMSEP: A wrapper around MSEP to calculate RMSEPs
-RMSEP <- function(object, ...) UseMethod("RMSEP")
-RMSEP.mvr <- function(object, ...) {
+# RMSEP <- function(object, ...) UseMethod("RMSEP")
+#' @export
+RMSEP.mvrV <- function(object, ...) {
   cl <- match.call()
   cl[[1]] <- as.name("MSEP")
   z <- eval(cl, parent.frame())
@@ -774,6 +777,7 @@ RMSEP.mvr <- function(object, ...) {
 }
 
 ## Print method for mvrVal objects:
+#' @export
 print.mvrVal <- function(x, digits = 4, print.gap = 2, ...) {
   nresp <- dim(x$val)[2]
   yvarnames <- dimnames(x$val)[[2]]
